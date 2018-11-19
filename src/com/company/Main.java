@@ -23,22 +23,13 @@ public class Main {
 
         String ext = file.substring(lastIndexOf);
 
-        System.out.println("Enter dictionary location:");
-        String dictLocation = scanner.nextLine();
-        byte[] bytes = readFile(file);
-        Dictionary dictionary = readDictionary(dictLocation);
-        int[] bytesInt = new int[bytes.length];
-        for(int i = 0; i < bytes.length; i++) bytesInt[i] = bytes[i] & 0xFF;
-        Decompressor decompressor = new Decompressor(bytesInt, dictionary);
-        writeDecompressedFile(decompressor.decompress(), "decompressed.txt");
-
-        /* if(ext == "hf") {
+        if(ext.equals(".hf")){
             System.out.println("Enter dictionary location:");
             String dictLocation = scanner.nextLine();
             byte[] bytes = readFile(file);
             Dictionary dictionary = readDictionary(dictLocation);
             int[] bytesInt = new int[bytes.length];
-            for(int i = 0; i < bytes.length; i++) bytesInt[i] = bytes[i];
+            for(int i = 0; i < bytes.length; i++) bytesInt[i] = bytes[i] & 0xFF;
             Decompressor decompressor = new Decompressor(bytesInt, dictionary);
             System.out.println("Enter decompressed.txt file location:");
             String decFileLocation = scanner.nextLine();
@@ -51,31 +42,7 @@ public class Main {
             System.out.println("\nEnter dictionary file path");
             String dictPath = scanner.nextLine();
             writeCompressedFile(compressionResult.getLength(), compressionResult.getBytes(compressionResult.getBytesInt()), compressor.getDictionary(), filePath, dictPath);
-        } */
-
-        /*
-        Compressor compressor = new Compressor(readFile(file));
-        System.out.println(Arrays.toString(readFile(file)));
-        CompressionResult compressionResult = compressor.compress();
-        System.out.println("\nEnter compressed file path");
-        String filePath = scanner.nextLine();
-        System.out.println("\nEnter dictionary file path");
-        String dictPath = scanner.nextLine();
-        writeCompressedFile(compressionResult.getLength(), compressionResult.getBytes(compressionResult.getBytesInt()), compressor.getDictionary(), filePath, dictPath);
-        */
-
-        /*
-        String file = "hello, world!";
-        System.out.println(Arrays.toString(file.getBytes()) + "\n");
-        Compressor compressor = new Compressor(file.getBytes(StandardCharsets.UTF_8));
-        CompressionResult cr = compressor.compress();
-        System.out.println(cr.getBytesString());
-        System.out.println(cr.getLength());
-        System.out.println(compressor.getDictionary());
-        int[] intArray = Arrays.stream(cr.getBytesInt()).mapToInt(Integer::intValue).toArray();
-        Decompressor decompressor = new Decompressor(intArray, compressor.getDictionary());
-        System.out.println("\n" + Arrays.toString(decompressor.decompress()));
-        */
+        }
     }
 
     private static void writeDecompressedFile(byte[] content, String filePath) {
